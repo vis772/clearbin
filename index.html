@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- skip-link -->
+<style>.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}.skip-link:focus{left:16px;top:16px;width:auto;height:auto;padding:8px 16px;background:var(--forest);color:var(--cream);border-radius:8px;font-size:14px;z-index:1000}</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ClearBin — Trash &amp; Recycling Bin Cleaning · Maple Grove · Medina · Plymouth MN</title>
+<meta name="description" content="Heated-water bin cleaning for Maple Grove, Medina &amp; Plymouth, MN. We clean your trash and recycling bins the same day your city truck empties them. Starting at $45/mo." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://clearbin.co/" />
+
+<!-- Open Graph -->
+<meta property="og:type"        content="website" />
+<meta property="og:url"         content="https://clearbin.co/" />
+<meta property="og:title"       content="ClearBin — Bin Cleaning · Maple Grove · Medina · Plymouth MN" />
+<meta property="og:description" content="We clean your trash &amp; recycling bins the same day your city truck empties them. Heated water, eco soap, before/after photos texted to you." />
+<meta property="og:image"       content="https://clearbin.co/og-image.jpg" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="ClearBin — Bin Cleaning in the Northwest Metro" />
+<meta name="twitter:description" content="Heated-water bin cleaning same day as city pickup. Starting at $45/mo in Maple Grove, Medina &amp; Plymouth." />
+<meta name="twitter:image"       content="https://clearbin.co/og-image.jpg" />
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231F3A2E'/><circle cx='50' cy='50' r='22' fill='%239CCB7A'/><circle cx='50' cy='50' r='10' fill='%231F3A2E'/></svg>" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231F3A2E'/><circle cx='50' cy='50' r='22' fill='%239CCB7A'/></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F4F1E6;--bg-2:#EBE7D6;--paper:#FAF8F0;
+    --ink:#15241C;--ink-soft:#2E4438;--muted:#6B7A6F;
+    --line:#D9D4BF;--line-soft:#E5E0CC;
+    --forest:#1F3A2E;--forest-2:#13261D;--moss:#3D6B4F;
+    --leaf:#7FB069;--leaf-bright:#9CCB7A;--citrus:#D9E27A;--cream:#F8F4E3;
+    --shadow:0 1px 0 rgba(31,58,46,.04),0 12px 30px -18px rgba(31,58,46,.25);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  html{scroll-behavior:smooth}
+  body{font-family:"Geist",ui-sans-serif,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  ::selection{background:var(--leaf);color:var(--forest-2)}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 28px}
+  .serif{font-family:"Instrument Serif",serif;font-weight:400;letter-spacing:-.01em}
+  .mono{font-family:"Geist Mono",ui-monospace,monospace;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(10px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid transparent;transition:border-color .25s ease;}
+  .nav.is-stuck{border-bottom-color:var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.02em;font-size:18px}
+  .logo-mark{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--leaf-bright),var(--moss) 70%,var(--forest) 100%);box-shadow:inset 0 0 0 2px var(--bg),0 0 0 1px var(--forest);position:relative;}
+  .logo-mark::after{content:"";position:absolute;inset:6px;border-radius:50%;border:1.5px dashed var(--cream);opacity:.6}
+  .nav-links{display:flex;gap:24px;font-size:14px;color:var(--ink-soft)}
+  .nav-links a:hover{color:var(--forest)}
+  .nav-cta{display:flex;align-items:center;gap:8px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:500;transition:transform .15s ease,background .2s ease,color .2s ease;border:1px solid transparent;cursor:pointer;white-space:nowrap;}
+  .btn-primary{background:var(--forest);color:var(--cream);border-color:var(--forest)}
+  .btn-primary:hover{background:var(--forest-2);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--forest);border-color:var(--line)}
+  .btn-ghost:hover{background:var(--paper)}
+  .btn-sm{padding:8px 14px;font-size:13px}
+  .btn .arrow{transition:transform .25s ease}
+  .btn:hover .arrow{transform:translateX(3px)}
+  @media(max-width:960px){.nav-links{display:none}}
+
+  /* HERO */
+  .hero{position:relative;padding:36px 0 56px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;pointer-events:none;z-index:-1}
+  .hero-bg::before{content:"";position:absolute;right:-160px;top:-160px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle at center,color-mix(in srgb,var(--leaf) 65%,transparent),transparent 65%);filter:blur(20px);opacity:.55;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:var(--ink-soft);}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 3px color-mix(in srgb,var(--leaf) 30%,transparent)}
+  h1.display{font-family:"Geist",sans-serif;font-weight:700;font-size:clamp(76px,14vw,220px);line-height:.86;letter-spacing:-.05em;margin:18px 0 0;color:var(--forest-2);text-transform:uppercase;}
+  h1.display .em{font-family:"Instrument Serif",serif;font-weight:400;font-style:italic;text-transform:none;letter-spacing:-.03em;color:var(--moss);font-size:.78em;display:inline-block;transform:translateY(-.05em)}
+  h1.display .apo{color:var(--leaf)}
+  .hero-row{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end;}
+  @media(max-width:980px){.hero-row{grid-template-columns:1fr;gap:32px}}
+  .hero-sub{margin-top:22px;max-width:520px;color:var(--ink-soft);font-size:17px;line-height:1.55}
+  .hero-cta{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .hero-meta{margin-top:24px;display:flex;gap:22px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+  .hero-meta .item{display:flex;align-items:center;gap:7px}
+  .hero-meta svg{width:14px;height:14px;color:var(--moss)}
+  .bin-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:end;}
+  .bin-card{aspect-ratio:3/4;border-radius:16px;border:1px solid var(--line);background:var(--paper);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:14px;transition:transform .25s ease;}
+  .bin-card:hover{transform:translateY(-3px)}
+  .bin-card .tag{display:inline-flex;align-items:center;gap:6px;font-family:"Geist Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);background:var(--bg);padding:5px 9px;border-radius:999px;border:1px solid var(--line);align-self:flex-start}
+  .bin-card .tag .swatch{width:7px;height:7px;border-radius:2px}
+  .bin-card .bin-art{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);width:62%}
+  .bin-card .label{position:absolute;bottom:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:end;font-family:"Geist Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);z-index:1}
+  /* Photo bin cards */
+  .bin-card .bin-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;}
+  .bin-card .bin-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.6) 100%);pointer-events:none;z-index:1;}
+  .bin-card:has(.bin-photo) .tag{position:relative;z-index:2;}
+  .bin-card:has(.bin-photo) .label{color:#fff;z-index:2;}
+  /* Photo step bins */
+  .step-bin .bin-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;}
+  .step-bin:has(.bin-photo) .tag{color:rgba(255,255,255,.9);z-index:1;}
+  .bin{display:block;width:100%}
+  .bin-trio .bin-card:nth-child(1){transform:rotate(-1.2deg)}
+  .bin-trio .bin-card:nth-child(2){transform:translateY(-12px) rotate(.6deg)}
+  .bin-trio .bin-card:nth-child(3){transform:rotate(-.4deg)}
+  .bin-trio .bin-card:nth-child(2):hover{transform:translateY(-18px) rotate(.6deg)}
+
+  /* SECTIONS */
+  section{padding:80px 0;position:relative}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:40px;flex-wrap:wrap}
+  .sec-head .lead{max-width:560px}
+  .sec-eyebrow{color:var(--moss)}
+  .sec-title{font-family:"Instrument Serif",serif;font-size:clamp(36px,4.4vw,60px);line-height:1;letter-spacing:-.02em;margin:10px 0 0;color:var(--forest-2);font-weight:400;}
+  .sec-title em{font-style:italic;color:var(--moss)}
+  .sec-desc{color:var(--ink-soft);max-width:380px;font-size:14.5px}
+
+  /* HOW IT WORKS */
+  .how{background:var(--forest);color:var(--cream);border-radius:32px;margin:0 28px;padding:64px 0;}
+  @media(max-width:980px){.how{margin:0 16px;border-radius:24px;padding:56px 0}}
+  .how .sec-title{color:var(--cream)}
+  .how .sec-title em{color:var(--leaf-bright)}
+  .how .sec-desc{color:color-mix(in srgb,var(--cream) 75%,transparent)}
+  .how .sec-eyebrow{color:var(--leaf-bright)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:880px){.steps{grid-template-columns:1fr}}
+  .step{background:color-mix(in srgb,var(--cream) 6%,var(--forest));border:1px solid color-mix(in srgb,var(--cream) 14%,transparent);border-radius:20px;padding:24px;position:relative;display:flex;flex-direction:column;gap:14px;transition:transform .25s ease,background .25s ease;}
+  .step:hover{transform:translateY(-3px);background:color-mix(in srgb,var(--cream) 10%,var(--forest))}
+  .step-head{display:flex;justify-content:space-between;align-items:flex-start}
+  .step-num{font-family:"Instrument Serif",serif;font-size:64px;line-height:.85;color:var(--leaf-bright);font-style:italic}
+  .step h3{font-size:20px;margin:0;letter-spacing:-.01em;font-weight:500}
+  .step p{color:color-mix(in srgb,var(--cream) 70%,transparent);font-size:14.5px;margin:0;line-height:1.55}
+  .step .step-bin{background:color-mix(in srgb,var(--cream) 8%,transparent);border:1px dashed color-mix(in srgb,var(--cream) 22%,transparent);border-radius:14px;height:170px;display:grid;place-items:center;position:relative;overflow:hidden;}
+  .step .step-bin .bin{height:88%;width:auto}
+  .step .step-bin .tag{position:absolute;top:10px;left:10px;font-family:"Geist Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:color-mix(in srgb,var(--cream) 60%,transparent)}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:1080px){.pricing-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.pricing-grid{grid-template-columns:1fr}}
+  .price-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;position:relative;}
+  .price-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--moss)}
+  .price-card.feat{background:var(--forest);color:var(--cream);border-color:var(--forest)}
+  .price-card.feat .price-title{color:var(--cream)}
+  .price-card.feat .price-desc,.price-card.feat .features li{color:color-mix(in srgb,var(--cream) 80%,transparent)}
+  .price-card.feat .price{color:var(--leaf-bright)}
+  .price-card.feat .features li::before{color:var(--leaf-bright)}
+  .price-card .badge{position:absolute;top:-11px;right:18px;background:var(--leaf);color:var(--forest-2);padding:4px 11px;border-radius:999px;font-size:11px;font-weight:500;font-family:"Geist Mono",monospace;text-transform:uppercase;letter-spacing:.1em;}
+  .price-title{font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--forest-2);display:flex;align-items:center;gap:10px}
+  .price-title .mini-bin{width:18px;height:22px;display:inline-block}
+  .price-desc{font-size:13px;color:var(--muted);margin-top:2px}
+  .price{font-family:"Instrument Serif",serif;font-size:56px;line-height:1;color:var(--forest-2);display:flex;align-items:baseline;gap:4px}
+  .price .cur{font-size:22px;align-self:flex-start;margin-top:7px;opacity:.7}
+  .price .per{font-family:"Geist",sans-serif;font-size:13px;color:var(--muted);font-style:normal;margin-left:3px}
+  .price-card.feat .price .per{color:color-mix(in srgb,var(--cream) 65%,transparent)}
+  .features{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;font-size:13.5px;flex:1}
+  .features li{position:relative;padding-left:20px;color:var(--ink-soft)}
+  .features li::before{content:"✓";position:absolute;left:0;top:0;color:var(--moss);font-weight:600}
+  .price-card .btn{justify-content:center;width:100%}
+  .price-card.feat .btn{background:var(--leaf);color:var(--forest-2);border-color:var(--leaf)}
+  .price-card.feat .btn:hover{background:var(--leaf-bright)}
+
+  /* WHY */
+  .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:760px){.why-grid{grid-template-columns:1fr}}
+  .why-item{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px;transition:transform .25s ease,border-color .25s ease;}
+  .why-item:hover{transform:translateY(-3px);border-color:var(--moss)}
+  .why-item .top{display:flex;align-items:center;justify-content:space-between}
+  .why-item .pic{width:36px;height:36px;border-radius:50%;background:var(--leaf);display:grid;place-items:center;color:var(--forest-2)}
+  .why-item .pic svg{width:16px;height:16px}
+  .why-item .num{font-family:"Geist Mono",monospace;color:var(--muted);font-size:12px}
+  .why-item h4{margin:0;font-size:20px;font-weight:400;font-family:"Instrument Serif",serif;color:var(--forest-2);letter-spacing:-.01em}
+  .why-item p{margin:0;color:var(--ink-soft);font-size:14px;line-height:1.5}
+
+  /* SERVICE AREA */
+  .service{background:var(--paper);border-radius:32px;margin:0 28px;padding:64px 0}
+  @media(max-width:980px){.service{margin:0 16px;border-radius:24px;padding:56px 0}}
+  .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+  @media(max-width:900px){.service-grid{grid-template-columns:1fr}}
+  .map{aspect-ratio:1/1;background:var(--cream);border-radius:24px;position:relative;overflow:hidden;border:1px solid var(--line);}
+  .map svg{position:absolute;inset:0;width:100%;height:100%}
+  .city-list{display:flex;flex-direction:column;gap:12px}
+  .city{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:16px 20px;background:var(--bg);border:1px solid var(--line);border-radius:16px;transition:transform .25s ease,border-color .25s ease;}
+  .city:hover{transform:translateX(4px);border-color:var(--moss)}
+  .city .zip{font-family:"Geist Mono",monospace;font-size:11px;color:var(--muted)}
+  .city .name{font-family:"Instrument Serif",serif;font-size:24px;color:var(--forest-2);letter-spacing:-.01em;line-height:1.1;margin-top:2px}
+  .city .pin{width:32px;height:32px;border-radius:50%;background:var(--forest);color:var(--leaf-bright);display:grid;place-items:center}
+  .city .pin svg{width:14px;height:14px}
+  .addr-check{margin-top:20px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;}
+  .addr-check .label{display:flex;align-items:center;gap:8px;font-family:"Geist Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--moss)}
+  .addr-check .label .dot{width:7px;height:7px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 3px color-mix(in srgb,var(--leaf) 30%,transparent)}
+  .addr-check form{display:grid;grid-template-columns:1fr 120px auto;gap:8px}
+  @media(max-width:520px){.addr-check form{grid-template-columns:1fr}}
+  .addr-check input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-size:14.5px;outline:none;transition:border-color .2s ease,box-shadow .2s ease;}
+  .addr-check input:focus{border-color:var(--moss);box-shadow:0 0 0 3px color-mix(in srgb,var(--leaf) 25%,transparent)}
+  .addr-check input::placeholder{color:var(--muted)}
+  .addr-check button{justify-content:center;padding:13px 18px}
+  .addr-result{display:none;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:14px;font-size:14px;line-height:1.45;}
+  .addr-result.show{display:flex}
+  .addr-result .ic{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;color:#fff;font-weight:600;font-size:13px}
+  .addr-result.ok{background:color-mix(in srgb,var(--leaf) 22%,var(--paper));border:1px solid color-mix(in srgb,var(--leaf) 60%,var(--line));color:var(--forest-2)}
+  .addr-result.ok .ic{background:var(--forest);color:var(--leaf-bright)}
+  .addr-result.no{background:#F5E9DD;border:1px solid #E2C9A8;color:#5A3D1F}
+  .addr-result.no .ic{background:#B97A3E}
+  .addr-result strong{font-weight:600}
+  .addr-result a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+
+  /* FAQ */
+  .faq-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+  @media(max-width:760px){.faq-cols{grid-template-columns:1fr}}
+  .faq-list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  details.faq{border-bottom:1px solid var(--line);padding:0}
+  details.faq summary{cursor:pointer;list-style:none;padding:18px 0;display:flex;justify-content:space-between;align-items:center;gap:18px;font-family:"Instrument Serif",serif;font-size:19px;color:var(--forest-2);letter-spacing:-.005em;transition:color .2s ease;}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary:hover{color:var(--moss)}
+  details.faq .plus{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:transform .3s ease,background .25s ease,color .25s ease,border-color .25s ease;color:var(--forest);font-size:13px;}
+  details.faq[open] .plus{transform:rotate(45deg);background:var(--forest);color:var(--cream);border-color:var(--forest)}
+  details.faq .ans{padding:0 36px 22px 0;color:var(--ink-soft);font-size:14.5px;line-height:1.55}
+
+  /* CTA STRIP */
+  .cta-strip{margin:0 28px;padding:64px 0;background:var(--leaf);border-radius:32px;color:var(--forest-2);text-align:center;position:relative;overflow:hidden;}
+  @media(max-width:980px){.cta-strip{margin:0 16px;border-radius:24px}}
+  .cta-strip h2{font-family:"Geist",sans-serif;font-weight:700;font-size:clamp(56px,10vw,132px);line-height:.86;margin:0 0 16px;letter-spacing:-.05em;text-transform:uppercase;}
+  .cta-strip h2 .apo{color:var(--cream)}
+  .cta-strip p{max-width:480px;margin:0 auto 22px;color:color-mix(in srgb,var(--forest-2) 78%,transparent);font-size:15px}
+  .cta-strip .btn-primary{background:var(--forest);color:var(--cream)}
+  .cta-strip .btn-primary:hover{background:var(--forest-2)}
+
+  /* FOOTER */
+  footer{padding:56px 0 28px;color:var(--ink-soft)}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
+  @media(max-width:880px){.foot-grid{grid-template-columns:1fr 1fr;gap:28px}}
+  .foot-col h5{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;font-weight:500}
+  .foot-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:14px}
+  .foot-col a:hover{color:var(--forest)}
+  .foot-brand p{font-size:14px;color:var(--ink-soft);max-width:320px;margin:12px 0 0}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);}
+  .foot-wordmark{font-family:"Geist",sans-serif;font-weight:800;font-size:clamp(64px,14vw,200px);line-height:.85;letter-spacing:-.06em;color:var(--forest);text-align:center;margin:32px 0 28px;user-select:none;text-transform:uppercase;}
+  .foot-wordmark .dot{display:inline-block;width:.14em;height:.14em;border-radius:50%;background:var(--leaf);vertical-align:baseline;margin:0 0 .08em .04em}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#pricing">Skip to pricing</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="binSvg" viewBox="0 0 100 130">
+      <rect x="6" y="14" width="88" height="14" rx="3" fill="currentColor"/>
+      <rect x="42" y="6" width="16" height="10" rx="3" fill="currentColor" opacity=".85"/>
+      <path d="M14 30 H86 L82 118 H18 Z" fill="currentColor"/>
+      <path d="M30 36 V112 M50 36 V112 M70 36 V112" stroke="rgba(255,255,255,.18)" stroke-width="1.2"/>
+      <circle cx="22" cy="122" r="6" fill="currentColor"/>
+      <circle cx="78" cy="122" r="6" fill="currentColor"/>
+      <circle cx="22" cy="122" r="2.2" fill="rgba(255,255,255,.35)"/>
+      <circle cx="78" cy="122" r="2.2" fill="rgba(255,255,255,.35)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span>ClearBin</span>
+    </a>
+    <nav class="nav-links" aria-label="Site navigation">
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#why">Why ClearBin</a>
+      <a href="#area">Service area</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="book.html" class="btn btn-primary">Book a clean <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-row">
+      <div>
+        <span class="eyebrow mono"><span class="dot"></span>Maple Grove · Medina · Plymouth, MN</span>
+        <h1 class="display">
+          Dirty bins,<br/>
+          <span class="em">cleaned&nbsp;fresh.</span>
+        </h1>
+        <p class="hero-sub">Heated‑water, eco‑soap bin cleaning the same day your cart hits the curb. You roll out a stinky bin — we hand back a fresh one.</p>
+        <div class="hero-cta">
+          <a href="book.html" class="btn btn-primary">Book a clean <span class="arrow">→</span></a>
+          <a href="#how" class="btn btn-ghost">How it works</a>
+        </div>
+        <div class="hero-meta">
+          <span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l3 3 6-6"/><circle cx="12" cy="12" r="9"/></svg>200°F &amp; 3,000 PSI</span>
+          <span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12c6 0 9-9 18-3 0 6-3 9-9 9-3 0-9 0-9-6z"/></svg>Eco‑friendly soap</span>
+          <span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-6-8-13a8 8 0 0116 0c0 7-8 13-8 13z"/></svg>Local &amp; insured</span>
+        </div>
+      </div>
+      <div class="bin-trio">
+        <div class="bin-card" style="background:linear-gradient(180deg,#EFE9CF,#E5DDB6)">
+          <span class="tag"><span class="swatch" style="background:#1F3A2E"></span>Trash</span>
+          <img class="bin-photo" src="images/ul2yazul2yazul2y-1.jpg" alt="Dirty trash bin — before cleaning">
+          <div class="bin-overlay"></div>
+          <span class="label"><span>96 GAL</span><span>BEFORE</span></span>
+        </div>
+        <div class="bin-card" style="background:linear-gradient(180deg,#E8EED4,#D7E4B5)">
+          <span class="tag"><span class="swatch" style="background:#3D6B4F"></span>Recycle</span>
+          <img class="bin-photo" src="images/n8z73nn8z73nn8z7-1.jpg" alt="Clean recycling bin — after cleaning">
+          <div class="bin-overlay"></div>
+          <span class="label"><span>64 GAL</span><span>AFTER</span></span>
+        </div>
+        <div class="bin-card" style="background:linear-gradient(180deg,#F0EBD3,#E2DCBB)">
+          <span class="tag"><span class="swatch" style="background:#7FB069"></span>Yard</span>
+          <svg class="bin bin-art" viewBox="0 0 100 130" style="color:#7FB069"><use href="#binSvg"/></svg>
+          <span class="label"><span>+$5/CLEAN</span><span>OPTIONAL</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="mono sec-eyebrow">/ 01 — How it works</span>
+        <h2 class="sec-title">Three steps. <em>Zero hassle.</em></h2>
+      </div>
+      <p class="sec-desc">We sync to your city's pickup day, so your cart goes back into the garage clean — not steeping for two more weeks.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-bin"><span class="tag">DIRTY</span><img class="bin-photo" src="images/swd7j3swd7j3swd7-1.jpg" alt="Dirty bin interior before cleaning"></div>
+        <div class="step-head"><span class="step-num">01</span></div>
+        <h3>Pick a plan</h3>
+        <p>Bi‑weekly, monthly, quarterly, or one‑time. Lock your address and bin count in under 60 seconds. No contracts.</p>
+      </div>
+      <div class="step">
+        <div class="step-bin"><span class="tag">EMPTIED</span><svg class="bin" viewBox="0 0 100 130" style="color:#9CCB7A"><use href="#binSvg"/></svg></div>
+        <div class="step-head"><span class="step-num">02</span></div>
+        <h3>Roll out as usual</h3>
+        <p>Put bins to the curb on trash day. After the city empties them, our truck shows up — usually before you're home from work.</p>
+      </div>
+      <div class="step">
+        <div class="step-bin"><span class="tag">SPARKLING</span><img class="bin-photo" src="images/6hfqtz6hfqtz6hfq-1.jpg" alt="Sparkling clean bin interior after cleaning"></div>
+        <div class="step-head"><span class="step-num">03</span></div>
+        <h3>Fresh bin returned</h3>
+        <p>200°F water blasts away grime, eco‑soap kills 99.9% of bacteria, citrus deodorizer finishes the job. Greywater fully captured.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="mono sec-eyebrow">/ 02 — Pricing</span>
+        <h2 class="sec-title">Flat rates. <em>No surprises.</em></h2>
+      </div>
+      <p class="sec-desc">Trash + recycling included on every plan. Add a third bin for $5/clean. Cancel anytime.</p>
+    </div>
+    <div class="pricing-grid">
+      <article class="price-card feat">
+        <span class="badge">Most Popular</span>
+        <div>
+          <div class="price-title"><svg class="mini-bin" viewBox="0 0 100 130" style="color:#9CCB7A"><use href="#binSvg"/></svg>Bi‑Weekly</div>
+          <div class="price-desc">Cleaned every other week.</div>
+        </div>
+        <div class="price"><span class="cur">$</span>70<span class="per">/mo</span></div>
+        <ul class="features">
+          <li>2 cleans per month</li>
+          <li>Trash + recycling</li>
+          <li>Priority scheduling</li>
+          <li>Free deodorizer refresh</li>
+        </ul>
+        <a href="book.html?plan=biweekly" class="btn">Get bi‑weekly <span class="arrow">→</span></a>
+      </article>
+      <article class="price-card">
+        <div>
+          <div class="price-title"><svg class="mini-bin" viewBox="0 0 100 130" style="color:#3D6B4F"><use href="#binSvg"/></svg>Monthly</div>
+          <div class="price-desc">A solid baseline for most homes.</div>
+        </div>
+        <div class="price"><span class="cur">$</span>45<span class="per">/mo</span></div>
+        <ul class="features">
+          <li>1 clean per month</li>
+          <li>Trash + recycling</li>
+          <li>Same‑day as pickup</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="book.html?plan=monthly" class="btn btn-ghost">Choose monthly <span class="arrow">→</span></a>
+      </article>
+      <article class="price-card">
+        <div>
+          <div class="price-title"><svg class="mini-bin" viewBox="0 0 100 130" style="color:#3D6B4F"><use href="#binSvg"/></svg>Quarterly</div>
+          <div class="price-desc">Seasonal refresh, 4× a year.</div>
+        </div>
+        <div class="price"><span class="cur">$</span>35<span class="per">/clean</span></div>
+        <ul class="features">
+          <li>4 cleans per year</li>
+          <li>Trash + recycling</li>
+          <li>Auto‑scheduled</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="book.html?plan=quarterly" class="btn btn-ghost">Choose quarterly <span class="arrow">→</span></a>
+      </article>
+      <article class="price-card">
+        <div>
+          <div class="price-title"><svg class="mini-bin" viewBox="0 0 100 130" style="color:#3D6B4F"><use href="#binSvg"/></svg>One‑Time</div>
+          <div class="price-desc">Single deep clean.</div>
+        </div>
+        <div class="price"><span class="cur">$</span>50<span class="per">/visit</span></div>
+        <ul class="features">
+          <li>Single deep clean</li>
+          <li>Trash + recycling</li>
+          <li>Any week available</li>
+          <li>No subscription</li>
+        </ul>
+        <a href="book.html?plan=onetime" class="btn btn-ghost">Book one‑time <span class="arrow">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why" style="padding-top:32px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="mono sec-eyebrow">/ 03 — Why ClearBin</span>
+        <h2 class="sec-title">Built for <em>neighbors,</em> not routes.</h2>
+      </div>
+      <p class="sec-desc">A small local crew with hospital‑grade gear and eco‑friendly methods. Hand‑answered phones, included.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="top"><span class="num">/ 01</span><span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12c6 0 9-9 18-3 0 6-3 9-9 9-3 0-9 0-9-6z"/></svg></span></div>
+        <h4>Eco‑first, every clean</h4>
+        <p>Plant‑based biodegradable soap. 100% of greywater is captured on‑truck — nothing hits your storm drain.</p>
+      </div>
+      <div class="why-item">
+        <div class="top"><span class="num">/ 02</span><span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="14" r="6"/><path d="M12 2v6m-3 3h6"/></svg></span></div>
+        <h4>Hospital‑grade sanitizing</h4>
+        <p>200°F water + EPA‑registered sanitizer kill 99.9% of bacteria, mold, and the gunk you'd rather not think about.</p>
+      </div>
+      <div class="why-item">
+        <div class="top"><span class="num">/ 03</span><span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span></div>
+        <h4>Same day as pickup</h4>
+        <p>We're routed to follow your city truck — so your cart goes back clean, not steeping for two more weeks.</p>
+      </div>
+      <div class="why-item">
+        <div class="top"><span class="num">/ 04</span><span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/></svg></span></div>
+        <h4>Local, insured, owned</h4>
+        <p>$2M liability, bonded crew, and a real phone number answered by a real person — usually inside an hour.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="service" id="area">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="mono sec-eyebrow">/ 04 — Service area</span>
+        <h2 class="sec-title">Where we <em>show up.</em></h2>
+      </div>
+      <p class="sec-desc">Three cities, northwest metro. Just outside the line? Drop us a note — we add ZIPs as routes fill up.</p>
+    </div>
+    <div class="service-grid">
+      <div class="map" role="img" aria-label="Stylized map of service area">
+        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#C8C2A6"/></pattern>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#DCD6BB" stroke-width="1"/></pattern>
+          </defs>
+          <rect width="400" height="400" fill="url(#dots)"/>
+          <rect width="400" height="400" fill="url(#grid)" opacity=".7"/>
+          <path d="M70,210 Q80,120 180,100 Q300,90 320,180 Q340,300 230,310 Q90,320 70,210Z" fill="#7FB069" opacity=".25" stroke="#1F3A2E" stroke-width="1.5" stroke-dasharray="4 5"/>
+          <path d="M0 230 Q150 220 400 240" stroke="#1F3A2E" stroke-width="2" fill="none" opacity=".25"/>
+          <path d="M180 0 Q200 180 220 400" stroke="#1F3A2E" stroke-width="2" fill="none" opacity=".25"/>
+          <g font-family="Geist Mono, monospace" font-size="11" fill="#15241C">
+            <g transform="translate(135,160)"><circle r="9" fill="#1F3A2E"/><circle r="3" fill="#9CCB7A"/><text x="14" y="4" font-weight="500">MAPLE GROVE</text><text x="14" y="18" fill="#6B7A6F" font-size="9">55369 · 55311</text></g>
+            <g transform="translate(120,250)"><circle r="9" fill="#1F3A2E"/><circle r="3" fill="#9CCB7A"/><text x="14" y="4" font-weight="500">MEDINA</text><text x="14" y="18" fill="#6B7A6F" font-size="9">55340 · 55356</text></g>
+            <g transform="translate(245,225)"><circle r="9" fill="#1F3A2E"/><circle r="3" fill="#9CCB7A"/><text x="14" y="4" font-weight="500">PLYMOUTH</text><text x="14" y="18" fill="#6B7A6F" font-size="9">55441 · 55447</text></g>
+          </g>
+          <g transform="translate(350,50)" font-family="Geist Mono,monospace" font-size="9" fill="#6B7A6F">
+            <circle r="18" fill="none" stroke="#6B7A6F" stroke-width=".8"/>
+            <path d="M0,-14 L3,0 L0,14 L-3,0 Z" fill="#1F3A2E"/>
+            <text x="-3" y="-22">N</text>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="city-list">
+          <div class="city">
+            <span class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-6-8-13a8 8 0 0116 0c0 7-8 13-8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+            <span><div class="zip">55369 · 55311</div><div class="name">Maple Grove</div></span>
+            <span class="mono" style="color:var(--moss)">Tue · Thu</span>
+          </div>
+          <div class="city">
+            <span class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-6-8-13a8 8 0 0116 0c0 7-8 13-8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+            <span><div class="zip">55340 · 55356</div><div class="name">Medina</div></span>
+            <span class="mono" style="color:var(--moss)">Wed</span>
+          </div>
+          <div class="city">
+            <span class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-6-8-13a8 8 0 0116 0c0 7-8 13-8 13z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+            <span><div class="zip">55441 · 55442 · 55447</div><div class="name">Plymouth</div></span>
+            <span class="mono" style="color:var(--moss)">Mon · Fri</span>
+          </div>
+        </div>
+        <div class="addr-check" id="addr-check">
+          <div class="label"><span class="dot"></span>Check your address</div>
+          <form id="addr-form" novalidate>
+            <label for="addr-street" class="sr-only">Street address</label>
+            <input type="text" id="addr-street" name="street" placeholder="Street address" autocomplete="street-address" required />
+            <label for="addr-zip" class="sr-only">ZIP code</label>
+            <input type="text" id="addr-zip" name="zip" placeholder="ZIP code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" required />
+            <button type="submit" class="btn btn-primary" aria-label="Check address coverage">Check <span class="arrow">→</span></button>
+          </form>
+          <div class="addr-result" id="addr-result" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="mono sec-eyebrow">/ 05 — FAQ</span>
+        <h2 class="sec-title">The <em>small print,</em> spelled out.</h2>
+      </div>
+      <p class="sec-desc">Clear, honest answers — no fine print, no runaround.</p>
+    </div>
+    <div class="faq-cols">
+      <div class="faq-list">
+        <details class="faq" open>
+          <summary>Do I need to be home?<span class="plus">+</span></summary>
+          <div class="ans">Nope. Leave bins at the curb on trash day — we handle the rest and text you a "clean complete" photo when done.</div>
+        </details>
+        <details class="faq">
+          <summary>What about winter?<span class="plus">+</span></summary>
+          <div class="ans">We pause routes mid‑December through February when temps stay below freezing. Your account is credited — no double‑billing.</div>
+        </details>
+        <details class="faq">
+          <summary>How is this different from a garden hose?<span class="plus">+</span></summary>
+          <div class="ans">Heat (200°F vs. cold), pressure (3,000 PSI vs. ~40), and capture — our truck collects all greywater so nothing hits your storm drain.</div>
+        </details>
+        <details class="faq">
+          <summary>Can I skip a clean?<span class="plus">+</span></summary>
+          <div class="ans">Yes — text us 48 hours ahead. We'll skip and bump your next clean. No charge, no drama.</div>
+        </details>
+      </div>
+      <div class="faq-list">
+        <details class="faq">
+          <summary>How do I pay?<span class="plus">+</span></summary>
+          <div class="ans">Card on file, charged after each clean — never before. See the difference first, then pay.</div>
+        </details>
+        <details class="faq">
+          <summary>Can I add a third bin?<span class="plus">+</span></summary>
+          <div class="ans">Yes. Every plan covers trash + recycling. Add a yard waste bin (any size) for $5 per clean, set in your account at any time.</div>
+        </details>
+        <details class="faq">
+          <summary>How do I cancel?<span class="plus">+</span></summary>
+          <div class="ans">Text or call us — no cancellation fee, no forms. We'll confirm by the end of the business day and your card won't be charged again.</div>
+        </details>
+        <details class="faq">
+          <summary>What if my trash day changes?<span class="plus">+</span></summary>
+          <div class="ans">Just text or call us at (651) 392‑6499. We'll update your route within 24 hours and confirm the new day.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip" id="book">
+  <div class="wrap">
+    <h2>Clean<span class="apo">'</span>em up.</h2>
+    <p>Cleaned the same day your city truck comes through. Maple Grove, Medina &amp; Plymouth.</p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+      <a href="book.html?plan=biweekly" class="btn btn-primary">Start with bi‑weekly <span class="arrow">→</span></a>
+      <a href="tel:+16513926499" class="btn btn-ghost" style="background:transparent;border-color:var(--forest);color:var(--forest)">Or call (651) 392‑6499</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col foot-brand">
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span>ClearBin</span></div>
+        <p>Locally owned bin cleaning. Cleaner bins, fresher garages, one less weekend chore — for the suburbs we live in.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Service</h5>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#area">Service area</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Cities</h5>
+        <ul>
+          <li>Maple Grove, MN</li>
+          <li>Medina, MN</li>
+          <li>Plymouth, MN</li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="tel:+16513926499">(651) 392‑6499</a></li>
+          <li><a href="mailto:clearbin12@gmail.com">clearbin12@gmail.com</a></li>
+          <li>Mon–Fri · 7am–6pm CT</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-wordmark" aria-hidden="true">Clean<span class="dot"></span>Em<span class="dot"></span>Up</div>
+    <div class="foot-bottom">
+      <span>© 2026 ClearBin · Maple Grove, MN</span>
+      <span class="mono">Made fresh in the 651</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('is-stuck', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  document.querySelectorAll('details.faq').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (d.open) document.querySelectorAll('details.faq').forEach(o => { if (o !== d) o.open = false; });
+    });
+  });
+
+  const SERVED_ZIPS = {
+    '55369':{city:'Maple Grove',days:'Tue · Thu'},
+    '55311':{city:'Maple Grove',days:'Tue · Thu'},
+    '55340':{city:'Medina',days:'Wed'},
+    '55356':{city:'Medina',days:'Wed'},
+    '55441':{city:'Plymouth',days:'Mon · Fri'},
+    '55442':{city:'Plymouth',days:'Mon · Fri'},
+    '55446':{city:'Plymouth',days:'Mon · Fri'},
+    '55447':{city:'Plymouth',days:'Mon · Fri'},
+  };
+  const form = document.getElementById('addr-form');
+  const out  = document.getElementById('addr-result');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const street = document.getElementById('addr-street').value.trim();
+      const zip    = document.getElementById('addr-zip').value.trim();
+      out.classList.remove('show','ok','no');
+      if (!/^\d{5}$/.test(zip)) {
+        out.classList.add('show','no');
+        out.innerHTML = '<span class="ic">!</span><span>Enter a valid 5‑digit ZIP code so we can check coverage.</span>';
+        return;
+      }
+      const hit = SERVED_ZIPS[zip];
+      if (hit) {
+        out.classList.add('show','ok');
+        out.innerHTML = `<span class="ic">✓</span><span><strong>You're in!</strong> ${street ? street + ' is in our ' : ''}<strong>${hit.city}</strong> route — cleaning days ${hit.days}. <a href="book.html">Pick a plan →</a></span>`;
+      } else {
+        out.classList.add('show','no');
+        out.innerHTML = `<span class="ic">!</span><span><strong>Not on a route yet.</strong> ZIP ${zip} isn't in our current coverage, but we add ZIPs as routes fill up. <a href="mailto:clearbin12@gmail.com?subject=Add%20my%20ZIP%20${zip}">Email us to join the waitlist →</a></span>`;
+      }
+    });
+  }
+</script>
+
+<!-- Schema.org LocalBusiness — helps Google show address, phone, hours in search -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "ClearBin",
+  "description": "Heated-water trash and recycling bin cleaning service in Maple Grove, Medina, and Plymouth, MN.",
+  "url": "https://clearbin.co",
+  "telephone": "+16513926499",
+  "email": "clearbin12@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Maple Grove",
+    "addressRegion": "MN",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    {"@type": "City", "name": "Maple Grove"},
+    {"@type": "City", "name": "Medina"},
+    {"@type": "City", "name": "Plymouth"}
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "07:00",
+    "closes": "18:00"
+  },
+  "priceRange": "$$",
+  "serviceType": "Bin Cleaning"
+}
+</script>
+</body>
+</html>

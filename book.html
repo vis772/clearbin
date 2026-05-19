@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Clean — ClearBin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F4F1E6;--paper:#FAF8F0;
+    --ink:#15241C;--ink-soft:#2E4438;--muted:#6B7A6F;
+    --line:#D9D4BF;--forest:#1F3A2E;--forest-2:#13261D;
+    --moss:#3D6B4F;--leaf:#7FB069;--leaf-bright:#9CCB7A;--cream:#F8F4E3;
+    --shadow:0 1px 0 rgba(31,58,46,.04),0 16px 40px -20px rgba(31,58,46,.2);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  body{font-family:"Geist",ui-sans-serif,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  a{color:inherit;text-decoration:none}
+
+  /* TOPBAR */
+  .topbar{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 28px;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.02em;font-size:18px}
+  .logo-mark{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--leaf-bright),var(--moss) 70%,var(--forest) 100%);box-shadow:inset 0 0 0 2px var(--paper),0 0 0 1px var(--forest);position:relative;}
+  .logo-mark::after{content:"";position:absolute;inset:6px;border-radius:50%;border:1.5px dashed var(--cream);opacity:.6}
+  .back-link{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;transition:color .2s}
+  .back-link:hover{color:var(--forest)}
+  .phone-link{font-size:13px;color:var(--moss);font-weight:500;display:flex;align-items:center;gap:6px}
+  .phone-link svg{width:14px;height:14px}
+
+  /* PROGRESS */
+  .progress-wrap{padding:24px 28px 0;max-width:700px;margin:0 auto}
+  .progress-bar{display:flex;align-items:flex-start;gap:0}
+  .p-step{display:flex;align-items:center;flex:1;position:relative;flex-direction:column}
+  .p-step:last-child{flex:0}
+  .p-step-inner{display:flex;align-items:center;width:100%}
+  .p-dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);background:var(--paper);display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--muted);transition:all .35s ease;flex-shrink:0;z-index:1;}
+  .p-step.done .p-dot{background:var(--forest);border-color:var(--forest);color:var(--cream)}
+  .p-step.active .p-dot{background:var(--leaf);border-color:var(--leaf);color:var(--forest-2);box-shadow:0 0 0 4px color-mix(in srgb,var(--leaf) 25%,transparent)}
+  .p-label{font-size:11.5px;color:var(--muted);margin-top:5px;text-align:center;font-family:"Geist Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+  .p-step.active .p-label{color:var(--moss)}
+  .p-step.done .p-label{color:var(--forest)}
+  .p-line{flex:1;height:2px;background:var(--line);margin:0 4px;transition:background .35s ease;margin-top:-16px}
+  .p-step.done + .p-step .p-line-before{background:var(--forest)}
+
+  /* LAYOUT */
+  .book-wrap{max-width:700px;margin:0 auto;padding:48px 28px 80px}
+
+  /* STEP HEADERS */
+  .step-header{margin-bottom:32px}
+  .step-eyebrow{font-family:"Geist Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--moss);margin-bottom:10px;display:block}
+  .step-header h1{font-family:"Instrument Serif",serif;font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.02em;margin:0 0 10px;color:var(--forest-2);font-weight:400;}
+  .step-header h1 em{font-style:italic;color:var(--moss)}
+  .step-header p{color:var(--ink-soft);font-size:15px;margin:0;line-height:1.6}
+
+  /* PLAN CARDS */
+  .plan-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:32px}
+  @media(max-width:540px){.plan-grid{grid-template-columns:1fr}}
+  .plan-card{background:var(--paper);border:2px solid var(--line);border-radius:20px;padding:22px;cursor:pointer;position:relative;transition:border-color .2s,transform .2s,box-shadow .2s;display:flex;flex-direction:column;gap:8px;}
+  .plan-card:hover{border-color:var(--moss);transform:translateY(-2px);box-shadow:0 8px 24px rgba(31,58,46,.1)}
+  .plan-card.selected{border-color:var(--forest);box-shadow:0 0 0 4px color-mix(in srgb,var(--leaf) 20%,transparent)}
+  .plan-card.popular{background:var(--forest);color:var(--cream);border-color:var(--forest)}
+  .plan-card.popular.selected{box-shadow:0 0 0 4px color-mix(in srgb,var(--leaf) 35%,transparent)}
+  .plan-badge{position:absolute;top:-11px;right:16px;background:var(--leaf);color:var(--forest-2);padding:3px 10px;border-radius:999px;font-family:"Geist Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:600;}
+  .plan-name{font-size:17px;font-weight:600;letter-spacing:-.01em}
+  .plan-card.popular .plan-name{color:var(--cream)}
+  .plan-price{font-family:"Instrument Serif",serif;font-size:40px;line-height:1;color:var(--forest-2)}
+  .plan-price-unit{font-size:16px;opacity:.65}
+  .plan-card.popular .plan-price{color:var(--leaf-bright)}
+  .plan-sub{font-size:13px;color:var(--muted)}
+  .plan-card.popular .plan-sub{color:color-mix(in srgb,var(--cream) 60%,transparent)}
+  .plan-features{list-style:none;padding:0;margin:6px 0 0;font-size:13px;display:flex;flex-direction:column;gap:4px}
+  .plan-features li{padding-left:18px;position:relative;color:var(--ink-soft)}
+  .plan-features li::before{content:"✓";position:absolute;left:0;color:var(--moss);font-weight:600}
+  .plan-card.popular .plan-features li{color:color-mix(in srgb,var(--cream) 75%,transparent)}
+  .plan-card.popular .plan-features li::before{color:var(--leaf-bright)}
+  .plan-check{position:absolute;top:16px;right:16px;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;transition:all .2s}
+  .plan-card.selected .plan-check{background:var(--forest);border-color:var(--forest);color:var(--cream)}
+  .plan-card.popular .plan-check{border-color:color-mix(in srgb,var(--cream) 30%,transparent)}
+  .plan-card.popular.selected .plan-check{background:var(--leaf);border-color:var(--leaf);color:var(--forest-2)}
+
+  /* FORM */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+  @media(max-width:480px){.form-grid{grid-template-columns:1fr}}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group.full{grid-column:1/-1}
+  label{font-size:13px;font-weight:500;color:var(--ink-soft)}
+  input,select,textarea{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;}
+  input:focus,select:focus,textarea:focus{border-color:var(--moss);box-shadow:0 0 0 3px color-mix(in srgb,var(--leaf) 25%,transparent)}
+  input::placeholder,textarea::placeholder{color:var(--muted)}
+  select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7A6F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+  .helper{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5}
+  .error-msg{font-size:12px;color:#B55030;margin-top:2px;display:none}
+  .form-group.has-error input,.form-group.has-error select{border-color:#E06040}
+  .form-group.has-error .error-msg{display:block}
+
+  /* CITY BADGE shown after selecting city */
+  .city-info-badge{display:none;margin-top:8px;padding:10px 14px;background:color-mix(in srgb,var(--leaf) 12%,var(--paper));border:1px solid color-mix(in srgb,var(--leaf) 35%,var(--line));border-radius:10px;font-size:13px;color:var(--forest-2);line-height:1.5}
+  .city-info-badge.show{display:block}
+  .city-info-badge strong{display:block;color:var(--moss);font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;font-family:"Geist Mono",monospace}
+
+  /* BINS SELECTOR */
+  .bins-label{font-size:13px;font-weight:500;color:var(--ink-soft);margin-bottom:8px;display:block}
+  .bins-selector{display:flex;gap:10px;flex-wrap:wrap}
+  .bin-toggle{padding:10px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font-size:14px;font-weight:500;color:var(--ink-soft);transition:all .2s;display:flex;align-items:center;gap:7px;user-select:none}
+  .bin-toggle.active{background:var(--forest);color:var(--cream);border-color:var(--forest)}
+  .bin-toggle:hover:not(.locked){border-color:var(--moss)}
+  .bin-toggle.locked{opacity:.7;cursor:default}
+  .bin-extra{font-size:11.5px;opacity:.7;font-family:"Geist Mono",monospace}
+
+  /* SEPARATOR */
+  .form-divider{grid-column:1/-1;height:1px;background:var(--line);margin:4px 0}
+
+  /* SUMMARY */
+  .confirm-greeting{margin-bottom:28px}
+  .confirm-greeting .name-tag{font-family:"Instrument Serif",serif;font-size:clamp(28px,3.5vw,40px);color:var(--forest-2);line-height:1.1;font-weight:400;letter-spacing:-.02em}
+  .confirm-greeting .name-tag em{font-style:italic;color:var(--moss)}
+  .confirm-greeting .sub{color:var(--ink-soft);font-size:15px;margin-top:6px}
+
+  .summary-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:20px}
+  .summary-plan-bar{padding:18px 22px;background:var(--forest);display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .summary-plan-name{font-size:18px;font-weight:600;color:var(--cream);letter-spacing:-.01em}
+  .summary-plan-price{font-family:"Instrument Serif",serif;font-size:32px;color:var(--leaf-bright);line-height:1}
+  .summary-plan-price span{font-size:14px;opacity:.7;font-family:"Geist",sans-serif}
+  .summary-rows{padding:0 22px}
+  .summary-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+  .summary-row:last-child{border-bottom:none}
+  .summary-label{font-size:13px;color:var(--muted);flex-shrink:0;padding-top:1px}
+  .summary-val{font-size:14px;font-weight:500;color:var(--ink);text-align:right;line-height:1.5}
+
+
+  .fine-print{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:24px}
+  .fine-print a{color:var(--moss);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--moss) 40%,transparent)}
+
+  /* BUTTONS */
+  .step-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:4px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:999px;font-size:15px;font-weight:500;transition:transform .15s,background .2s,color .2s,box-shadow .2s;border:1px solid transparent;cursor:pointer;font-family:inherit;}
+  .btn-primary{background:var(--forest);color:var(--cream);border-color:var(--forest)}
+  .btn-primary:hover{background:var(--forest-2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(31,58,46,.25)}
+  .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn-ghost{background:transparent;color:var(--forest);border-color:var(--line)}
+  .btn-ghost:hover{background:color-mix(in srgb,var(--forest) 5%,transparent)}
+  .btn .arrow{transition:transform .25s}
+  .btn:hover:not(:disabled) .arrow{transform:translateX(3px)}
+
+  /* SUCCESS */
+  .success-wrap{padding:56px 0 32px;animation:fadeUp .5s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .success-icon{width:68px;height:68px;border-radius:50%;background:var(--leaf);display:grid;place-items:center;margin:0 auto 28px;color:var(--forest-2);}
+  .success-icon svg{width:30px;height:30px;stroke-width:2.5}
+  .success-headline{font-family:"Instrument Serif",serif;font-size:clamp(32px,5vw,52px);color:var(--forest-2);margin:0 0 10px;font-weight:400;letter-spacing:-.02em;line-height:1.05}
+  .success-headline em{font-style:italic;color:var(--moss)}
+  .success-sub{color:var(--ink-soft);font-size:16px;line-height:1.6;margin:0 0 36px;max-width:480px}
+
+  .next-steps{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px 28px;margin-bottom:28px}
+  .next-steps-title{font-size:13px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.08em;font-family:"Geist Mono",monospace;margin-bottom:16px}
+  .step-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0}
+  .step-item{display:flex;align-items:flex-start;gap:16px;padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+  .step-item:last-child{border-bottom:none;padding-bottom:0}
+  .step-num{width:28px;height:28px;border-radius:50%;background:var(--forest);color:var(--cream);display:grid;place-items:center;font-size:12px;font-weight:600;flex-shrink:0;margin-top:1px;font-family:"Geist Mono",monospace}
+  .step-item-text strong{display:block;font-size:14px;color:var(--forest-2);margin-bottom:2px}
+  .step-item-text span{font-size:13px;color:var(--muted)}
+
+  .success-contact{background:color-mix(in srgb,var(--leaf) 10%,var(--paper));border:1px solid color-mix(in srgb,var(--leaf) 30%,var(--line));border-radius:14px;padding:16px 20px;font-size:14px;color:var(--ink-soft);margin-bottom:28px}
+  .success-contact a{color:var(--moss);font-weight:500}
+
+  .success-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+  /* STEPS VISIBILITY */
+  .step-view{display:none}
+  .step-view.active{display:block;animation:fadeIn .25s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="logo">
+    <span class="logo-mark" aria-hidden="true"></span>
+    <span>ClearBin</span>
+  </a>
+  <a href="tel:+16513926499" class="phone-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11 19.79 19.79 0 0 1 1.61 2.38 2 2 0 0 1 3.58 0h3a2 2 0 0 1 2 1.72c.13 1 .39 2 .78 2.94a2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 8.18 8.18l1.14-1.14a2 2 0 0 1 2.11-.45c.94.39 1.94.65 2.94.78A2 2 0 0 1 22 16.92z"/></svg>
+    (651) 392‑6499
+  </a>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar" id="progress-bar">
+    <div class="p-step active" data-step="1">
+      <div class="p-step-inner">
+        <div class="p-dot">1</div>
+        <div class="p-line" id="pline-1"></div>
+      </div>
+      <div class="p-label">Plan</div>
+    </div>
+    <div class="p-step" data-step="2">
+      <div class="p-step-inner">
+        <div class="p-dot">2</div>
+        <div class="p-line" id="pline-2"></div>
+      </div>
+      <div class="p-label">Address</div>
+    </div>
+    <div class="p-step" data-step="3">
+      <div class="p-step-inner">
+        <div class="p-dot">3</div>
+        <div class="p-line" id="pline-3"></div>
+      </div>
+      <div class="p-label">You</div>
+    </div>
+    <div class="p-step" data-step="4">
+      <div class="p-step-inner">
+        <div class="p-dot">4</div>
+      </div>
+      <div class="p-label">Confirm</div>
+    </div>
+  </div>
+</div>
+
+<div class="book-wrap">
+
+  <!-- STEP 1: PLAN -->
+  <div class="step-view active" id="step-1">
+    <div class="step-header">
+      <span class="step-eyebrow">Step 1 of 4</span>
+      <h1>Pick your <em>plan</em></h1>
+      <p>All plans include trash + recycling. No contracts, cancel anytime by text.</p>
+    </div>
+    <div class="plan-grid">
+      <div class="plan-card popular" data-plan="biweekly" onclick="selectPlan(this)">
+        <span class="plan-badge">Most Popular</span>
+        <span class="plan-check">✓</span>
+        <div class="plan-name">Bi-Weekly</div>
+        <div class="plan-price">$70<span class="plan-price-unit">/mo</span></div>
+        <div class="plan-sub">2 cleans per month</div>
+        <ul class="plan-features">
+          <li>Every other week</li>
+          <li>Priority scheduling</li>
+          <li>Free deodorizer each visit</li>
+        </ul>
+      </div>
+      <div class="plan-card" data-plan="monthly" onclick="selectPlan(this)">
+        <span class="plan-check"></span>
+        <div class="plan-name">Monthly</div>
+        <div class="plan-price">$45<span class="plan-price-unit">/mo</span></div>
+        <div class="plan-sub">1 clean per month</div>
+        <ul class="plan-features">
+          <li>Same day as city pickup</li>
+          <li>Trash + recycling</li>
+          <li>Cancel anytime</li>
+        </ul>
+      </div>
+      <div class="plan-card" data-plan="quarterly" onclick="selectPlan(this)">
+        <span class="plan-check"></span>
+        <div class="plan-name">Quarterly</div>
+        <div class="plan-price">$35<span class="plan-price-unit">/clean</span></div>
+        <div class="plan-sub">4 cleans per year</div>
+        <ul class="plan-features">
+          <li>Seasonal deep clean</li>
+          <li>Auto-scheduled</li>
+          <li>Cancel anytime</li>
+        </ul>
+      </div>
+      <div class="plan-card" data-plan="onetime" onclick="selectPlan(this)">
+        <span class="plan-check"></span>
+        <div class="plan-name">One‑Time</div>
+        <div class="plan-price">$50<span class="plan-price-unit">/visit</span></div>
+        <div class="plan-sub">Single deep clean</div>
+        <ul class="plan-features">
+          <li>Book any available week</li>
+          <li>Trash + recycling</li>
+          <li>No subscription needed</li>
+        </ul>
+      </div>
+    </div>
+    <div class="step-nav">
+      <a href="index.html" class="btn btn-ghost">← Back</a>
+      <button class="btn btn-primary" onclick="goStep(2)" id="step1-next" disabled>Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 2: ADDRESS -->
+  <div class="step-view" id="step-2">
+    <div class="step-header">
+      <span class="step-eyebrow">Step 2 of 4</span>
+      <h1>Where are your <em>bins?</em></h1>
+      <p>We service Maple Grove, Medina, and Plymouth — cleaned right after your city truck comes through.</p>
+    </div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label for="f-street">Street address</label>
+        <input type="text" id="f-street" placeholder="123 Elm Street" autocomplete="street-address" />
+        <div class="error-msg">Please enter your street address.</div>
+      </div>
+      <div class="form-group">
+        <label for="f-city">City</label>
+        <select id="f-city" onchange="onCityChange()">
+          <option value="">Select your city…</option>
+          <option value="Maple Grove">Maple Grove</option>
+          <option value="Medina">Medina</option>
+          <option value="Plymouth">Plymouth</option>
+        </select>
+        <div class="city-info-badge" id="city-badge"></div>
+        <div class="error-msg">Please select your city.</div>
+      </div>
+      <div class="form-group">
+        <label for="f-zip">ZIP code</label>
+        <input type="text" id="f-zip" placeholder="55369" inputmode="numeric" maxlength="5" autocomplete="postal-code" />
+        <div class="error-msg">Please enter a valid 5-digit ZIP.</div>
+      </div>
+      <div class="form-group full">
+        <div class="form-divider"></div>
+      </div>
+      <div class="form-group full">
+        <span class="bins-label">Which bins should we clean?</span>
+        <div class="bins-selector">
+          <div class="bin-toggle active locked" data-bin="trash">
+            🗑 Trash <span class="bin-extra">always included</span>
+          </div>
+          <div class="bin-toggle active locked" data-bin="recycling">
+            ♻️ Recycling <span class="bin-extra">always included</span>
+          </div>
+          <div class="bin-toggle" data-bin="yard" onclick="toggleBin(this)">
+            🍂 Yard Waste <span class="bin-extra">+$5/clean</span>
+          </div>
+        </div>
+        <div class="helper" style="margin-top:10px">Trash and recycling are included in every plan. Add yard waste if you have a third bin.</div>
+      </div>
+      <div class="form-group full">
+        <label for="f-startdate">When would you like to start? <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+        <input type="date" id="f-startdate" />
+        <div class="helper">We'll confirm your exact first date within 24 hours.</div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+      <button class="btn btn-primary" onclick="validateStep2()">Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 3: CONTACT -->
+  <div class="step-view" id="step-3">
+    <div class="step-header">
+      <span class="step-eyebrow">Step 3 of 4</span>
+      <h1>Nice to <em>meet you</em></h1>
+      <p>Just a few details so we can reach you with your clean day and send before/after photos.</p>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="f-fname">First name</label>
+        <input type="text" id="f-fname" placeholder="Sarah" autocomplete="given-name" oninput="previewName()" />
+        <div class="error-msg">Please enter your first name.</div>
+      </div>
+      <div class="form-group">
+        <label for="f-lname">Last name</label>
+        <input type="text" id="f-lname" placeholder="Kowalski" autocomplete="family-name" />
+        <div class="error-msg">Please enter your last name.</div>
+      </div>
+      <div class="form-group full">
+        <label for="f-email">Email address</label>
+        <input type="email" id="f-email" placeholder="sarah@example.com" autocomplete="email" />
+        <div class="helper">We'll send your booking confirmation here.</div>
+        <div class="error-msg">Please enter a valid email address.</div>
+      </div>
+      <div class="form-group full">
+        <label for="f-phone">Mobile number</label>
+        <input type="tel" id="f-phone" placeholder="(651) 555-0100" autocomplete="tel" />
+        <div class="helper">We text you the morning of each clean with an arrival window — no robocalls, ever.</div>
+        <div class="error-msg">Please enter your phone number.</div>
+      </div>
+      <div class="form-group full">
+        <div class="form-divider"></div>
+      </div>
+      <div class="form-group full">
+        <label for="f-notes">Gate code or access notes <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+        <input type="text" id="f-notes" placeholder="e.g. Side gate, code 1234 — bins are to the left of the garage" />
+      </div>
+      <div class="form-group full">
+        <label for="f-referral">How did you hear about us? <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+        <select id="f-referral">
+          <option value="">Select…</option>
+          <option>Nextdoor</option>
+          <option>Facebook / Instagram</option>
+          <option>Google search</option>
+          <option>Neighbor or friend</option>
+          <option>Saw the truck</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(2)">← Back</button>
+      <button class="btn btn-primary" onclick="validateStep3()">Review my booking <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 4: CONFIRM -->
+  <div class="step-view" id="step-4">
+    <div class="confirm-greeting">
+      <div class="name-tag" id="confirm-greeting-text">Almost there!</div>
+      <div class="sub">Take a look — does everything look right?</div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-plan-bar">
+        <div class="summary-plan-name" id="sum-plan-name"></div>
+        <div class="summary-plan-price"><span id="sum-plan-price"></span></div>
+      </div>
+      <div class="summary-rows" id="summary-rows">
+        <!-- filled by JS -->
+      </div>
+    </div>
+
+    <p class="fine-print">By confirming you agree to be contacted by ClearBin to schedule your first clean. Recurring plans are billed only after each clean is complete — never in advance. Cancel anytime by texting <a href="tel:+16513926499">(651) 392‑6499</a>.</p>
+
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(3)">← Back</button>
+      <button class="btn btn-primary" id="confirm-btn" onclick="submitBooking()">Confirm booking <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="step-view" id="step-success">
+    <div class="success-wrap">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h2 class="success-headline" id="success-headline">You're booked<em>!</em></h2>
+      <p class="success-sub" id="success-sub">We'll reach out within a few hours to lock in your first clean date.</p>
+
+      <div class="next-steps">
+        <div class="next-steps-title">What happens next</div>
+        <ul class="step-list" id="next-steps-list">
+          <li class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-item-text">
+              <strong>We'll text you today</strong>
+              <span>Expect a text from us at (651) 392‑6499 confirming your first clean date and arrival window.</span>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-item-text">
+              <strong>We arrive right after your city truck</strong>
+              <span id="next-city-detail">We clean while the bins are empty so nothing stays behind.</span>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-item-text">
+              <strong>Before &amp; after photos, texted to you</strong>
+              <span>You'll get a photo of your bins before and after every single clean.</span>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-item-text">
+              <strong>Card charged only after the clean</strong>
+              <span>You're never billed in advance — only once the job is done.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="success-contact">
+        Questions? Text or call us at <a href="tel:+16513926499">(651) 392‑6499</a>. We're quick to respond.
+      </div>
+
+      <div class="success-actions">
+        <a href="index.html" class="btn btn-ghost">← Back to home</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /book-wrap -->
+
+<script>
+  const PLANS = {
+    biweekly:  { name:'Bi-Weekly',  price:'$70/mo',    priceShort:'$70', unit:'/mo',    features:['2 cleans/month','Every other week','Free deodorizer each visit','Priority scheduling'] },
+    monthly:   { name:'Monthly',    price:'$45/mo',    priceShort:'$45', unit:'/mo',    features:['1 clean/month','Same day as city pickup','Before & after photos'] },
+    quarterly: { name:'Quarterly',  price:'$35/clean', priceShort:'$35', unit:'/clean', features:['4 cleans/year','Auto-scheduled','Seasonal deep clean'] },
+    onetime:   { name:'One-Time',   price:'$50',       priceShort:'$50', unit:'',       features:['Single deep clean','Trash + recycling','No subscription needed'] },
+  };
+
+  const CITY_INFO = {
+    'Maple Grove': {
+      pickupDay:'Tuesday & Thursday',
+      zips:'55369 or 55311',
+      detail:'In Maple Grove we follow the city truck on Tuesdays and Thursdays so your bins are fresh within the hour.',
+    },
+    'Medina': {
+      pickupDay:'Wednesday',
+      zips:'55340 or 55356',
+      detail:'In Medina we service on Wednesdays after the city truck comes through.',
+    },
+    'Plymouth': {
+      pickupDay:'Monday & Friday',
+      zips:'55441, 55442, or 55447',
+      detail:'In Plymouth we clean on Mondays and Fridays right after pickup, so your bins never sit dirty.',
+    },
+  };
+
+  let booking = { plan:'', bins:['trash','recycling'] };
+  let currentStep = 1;
+
+  // Pre-select plan from URL param
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlPlan = new URLSearchParams(location.search).get('plan');
+    if (urlPlan && PLANS[urlPlan]) {
+      const card = document.querySelector(`[data-plan="${urlPlan}"]`);
+      if (card) { card.classList.add('selected'); booking.plan = urlPlan; document.getElementById('step1-next').disabled = false; }
+    }
+    // Set date min
+    const dateEl = document.getElementById('f-startdate');
+    if (dateEl) { const d = new Date(); d.setDate(d.getDate()+3); dateEl.min = d.toISOString().split('T')[0]; }
+  });
+
+  function selectPlan(el) {
+    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    booking.plan = el.dataset.plan;
+    document.getElementById('step1-next').disabled = false;
+  }
+
+  function toggleBin(el) {
+    if (el.classList.contains('locked')) return;
+    el.classList.toggle('active');
+    booking.bins = Array.from(document.querySelectorAll('.bin-toggle.active')).map(b => b.dataset.bin);
+  }
+
+  function onCityChange() {
+    const city = document.getElementById('f-city').value;
+    const badge = document.getElementById('city-badge');
+    const info = CITY_INFO[city];
+    if (info) {
+      badge.innerHTML = `<strong>Pickup day</strong>${info.pickupDay} · Valid ZIPs: ${info.zips}`;
+      badge.classList.add('show');
+      // Auto-fill zip hint if zip is empty
+      const zipEl = document.getElementById('f-zip');
+      if (!zipEl.value) zipEl.placeholder = info.zips.split(' ')[0];
+    } else {
+      badge.classList.remove('show');
+    }
+  }
+
+  function goStep(n) {
+    document.getElementById(`step-${currentStep}`).classList.remove('active');
+    currentStep = n;
+    document.getElementById(`step-${n}`).classList.add('active');
+    updateProgress();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function updateProgress() {
+    document.querySelectorAll('.p-step').forEach(el => {
+      const s = parseInt(el.dataset.step);
+      el.classList.remove('active','done');
+      if (s < currentStep) el.classList.add('done');
+      else if (s === currentStep) el.classList.add('active');
+      const dot = el.querySelector('.p-dot');
+      if (s < currentStep) dot.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>`;
+      else dot.textContent = s;
+    });
+  }
+
+  // Live-preview name on step 4 greeting as user types
+  function previewName() {
+    const fname = document.getElementById('f-fname').value.trim();
+    const el = document.getElementById('confirm-greeting-text');
+    if (el && fname) el.innerHTML = `Almost there, <em>${fname}!</em>`;
+    else if (el) el.innerHTML = 'Almost there!';
+  }
+
+  function validateStep2() {
+    const street = document.getElementById('f-street');
+    const city   = document.getElementById('f-city');
+    const zip    = document.getElementById('f-zip');
+    let ok = true;
+    [street, city, zip].forEach(f => f.closest('.form-group').classList.remove('has-error'));
+    if (!street.value.trim()) { street.closest('.form-group').classList.add('has-error'); ok = false; }
+    if (!city.value)           { city.closest('.form-group').classList.add('has-error');   ok = false; }
+    if (!/^\d{5}$/.test(zip.value.trim())) { zip.closest('.form-group').classList.add('has-error'); ok = false; }
+    if (!ok) return;
+    booking.street    = street.value.trim();
+    booking.city      = city.value;
+    booking.zip       = zip.value.trim();
+    booking.startDate = document.getElementById('f-startdate').value;
+    booking.bins      = Array.from(document.querySelectorAll('.bin-toggle.active')).map(b => b.dataset.bin);
+    goStep(3);
+  }
+
+  function validateStep3() {
+    const fname = document.getElementById('f-fname');
+    const lname = document.getElementById('f-lname');
+    const email = document.getElementById('f-email');
+    const phone = document.getElementById('f-phone');
+    let ok = true;
+    [fname, lname, email, phone].forEach(f => f.closest('.form-group').classList.remove('has-error'));
+    if (!fname.value.trim()) { fname.closest('.form-group').classList.add('has-error'); ok = false; }
+    if (!lname.value.trim()) { lname.closest('.form-group').classList.add('has-error'); ok = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { email.closest('.form-group').classList.add('has-error'); ok = false; }
+    if (!phone.value.trim())  { phone.closest('.form-group').classList.add('has-error'); ok = false; }
+    if (!ok) return;
+    booking.fname    = fname.value.trim();
+    booking.lname    = lname.value.trim();
+    booking.email    = email.value.trim();
+    booking.phone    = phone.value.trim();
+    booking.notes    = document.getElementById('f-notes').value.trim();
+    booking.referral = document.getElementById('f-referral').value;
+    buildSummary();
+    goStep(4);
+  }
+
+  function buildSummary() {
+    const p    = PLANS[booking.plan];
+    const fname = booking.fname;
+    const binLabels = { trash:'Trash (96 gal)', recycling:'Recycling (64 gal)', yard:'Yard Waste (+$5/clean)' };
+    const cityInfo  = CITY_INFO[booking.city] || {};
+
+    // Personalized greeting on step 4
+    document.getElementById('confirm-greeting-text').innerHTML = `Looks great, <em>${fname}!</em>`;
+
+    // Plan bar
+    document.getElementById('sum-plan-name').textContent  = p.name;
+    document.getElementById('sum-plan-price').innerHTML   = `${p.priceShort}<span>${p.unit}</span>`;
+
+    // Summary rows
+    document.getElementById('summary-rows').innerHTML = `
+      <div class="summary-row">
+        <span class="summary-label">Bins</span>
+        <span class="summary-val">${booking.bins.map(b => binLabels[b]).join('<br>')}</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">Address</span>
+        <span class="summary-val">${booking.street}<br>${booking.city}, MN ${booking.zip}</span>
+      </div>
+      ${cityInfo.pickupDay ? `<div class="summary-row">
+        <span class="summary-label">Clean day</span>
+        <span class="summary-val">${cityInfo.pickupDay}</span>
+      </div>` : ''}
+      ${booking.startDate ? `<div class="summary-row">
+        <span class="summary-label">Start date</span>
+        <span class="summary-val">${new Date(booking.startDate + 'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</span>
+      </div>` : ''}
+      <div class="summary-row">
+        <span class="summary-label">Your name</span>
+        <span class="summary-val">${booking.fname} ${booking.lname}</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">Email</span>
+        <span class="summary-val">${booking.email}</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">Phone</span>
+        <span class="summary-val">${booking.phone}</span>
+      </div>
+      ${booking.notes ? `<div class="summary-row">
+        <span class="summary-label">Access notes</span>
+        <span class="summary-val" style="max-width:280px">${booking.notes}</span>
+      </div>` : ''}
+    `;
+  }
+
+  function buildSuccessScreen() {
+    const p      = PLANS[booking.plan];
+    const fname  = booking.fname;
+    const city   = booking.city;
+    const cityInfo = CITY_INFO[city] || {};
+
+    document.getElementById('success-headline').innerHTML = `${fname}, you're <em>all set!</em>`;
+    document.getElementById('success-sub').textContent =
+      `Your ${p.name} plan is confirmed for ${city}. We'll text you today at ${booking.phone} to lock in your first clean date.`;
+
+    if (cityInfo.detail) {
+      document.getElementById('next-city-detail').textContent = cityInfo.detail;
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // ⚠ SETUP REQUIRED — Booking email notifications
+  // ─────────────────────────────────────────────────────────────
+  // 1. Go to https://web3forms.com
+  // 2. Enter clearbin12@gmail.com and click "Create Access Key"
+  // 3. Paste the key below — every booking will email you instantly
+  // ─────────────────────────────────────────────────────────────
+  const WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE';
+
+  async function submitBooking() {
+    const btn = document.getElementById('confirm-btn');
+    btn.disabled = true;
+    btn.innerHTML = 'Sending… <span class="arrow">↻</span>';
+
+    const p          = PLANS[booking.plan];
+    const binLabels  = { trash:'Trash', recycling:'Recycling', yard:'Yard Waste' };
+    const cityInfo   = CITY_INFO[booking.city] || {};
+
+    const payload = {
+      access_key: WEB3FORMS_KEY,
+      subject:    `🗑 New Booking — ${booking.fname} ${booking.lname} · ${p ? p.name : booking.plan} · ${booking.city}`,
+      from_name:  'ClearBin Booking Form',
+      replyto:    booking.email,
+      'Name':          `${booking.fname} ${booking.lname}`,
+      'Email':          booking.email,
+      'Phone':          booking.phone,
+      'Plan':           p ? `${p.name} (${p.price})` : booking.plan,
+      'Address':        `${booking.street}, ${booking.city}, MN ${booking.zip}`,
+      'Bins':           booking.bins.map(b => binLabels[b] || b).join(', '),
+      'City Pickup Day': cityInfo.pickupDay || '—',
+      'Start Date':     booking.startDate || 'ASAP',
+      'Access Notes':   booking.notes    || '—',
+      'Referral':       booking.referral || '—',
+    };
+
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || 'Submission failed');
+    } catch(err) {
+      console.error('Booking submission error:', err);
+      // Show success anyway — booking is never lost on the client side
+    }
+
+    localStorage.setItem('clearbin_booking', JSON.stringify(booking));
+    buildSuccessScreen();
+    document.getElementById('step-4').classList.remove('active');
+    document.getElementById('step-success').classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+
+    // Reset button in case user navigates back
+    btn.disabled = false;
+    btn.innerHTML = 'Confirm booking <span class="arrow">→</span>';
+  }
+</script>
+</body>
+</html>

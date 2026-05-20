@@ -65,7 +65,7 @@
   .plan-card.popular.selected{box-shadow:0 0 0 4px color-mix(in srgb,var(--leaf) 35%,transparent)}
   .plan-badge{position:absolute;top:-11px;right:16px;background:var(--leaf);color:var(--forest-2);padding:3px 10px;border-radius:999px;font-family:"Geist Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:600;}
   .plan-badge.sale{background:linear-gradient(135deg,#F5A623,#F07C3E);color:#fff;}
-  .plan-price-was{font-family:"Geist Mono",monospace;font-size:12px;color:var(--muted);text-decoration:line-through;margin-bottom:1px;}
+  .plan-price-was{font-size:28px;font-weight:700;color:color-mix(in srgb,var(--cream) 45%,transparent);text-decoration:line-through;line-height:1;margin-bottom:2px;}
   .plan-name{font-size:17px;font-weight:600;letter-spacing:-.01em}
   .plan-card.popular .plan-name{color:var(--cream)}
   .plan-price{font-family:"Instrument Serif",serif;font-size:40px;line-height:1;color:var(--forest-2)}
@@ -240,7 +240,7 @@
     </div>
     <div class="plan-grid">
       <div class="plan-card popular" data-plan="biweekly" onclick="selectPlan(this)">
-        <span class="plan-badge sale">☀️ Summer Sale</span>
+        <span class="plan-badge sale">Summer Sale</span>
         <span class="plan-check">✓</span>
         <div class="plan-name">Bi-Weekly</div>
         <div class="plan-price-was">$110/mo</div>

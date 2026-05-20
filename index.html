@@ -604,41 +604,62 @@ function initServiceMap() {
     { name:'Plymouth',    lat:45.0105, lng:-93.4355 },
   ];
 
+  const STYLE = [
+    { elementType:'geometry',            stylers:[{color:'#f0ede6'}] },
+    { elementType:'labels.text.fill',    stylers:[{color:'#4a4a4a'}] },
+    { elementType:'labels.text.stroke',  stylers:[{color:'#ffffff'},{weight:2}] },
+    { featureType:'administrative.locality', elementType:'labels.text.fill', stylers:[{color:'#2a2a2a'},{weight:'500'}] },
+    { featureType:'road',                elementType:'geometry',       stylers:[{color:'#ffffff'}] },
+    { featureType:'road',                elementType:'geometry.stroke',stylers:[{color:'#e0dbd2'},{weight:1}] },
+    { featureType:'road.highway',        elementType:'geometry',       stylers:[{color:'#f5e9c4'}] },
+    { featureType:'road.highway',        elementType:'geometry.stroke',stylers:[{color:'#e8d98a'},{weight:1}] },
+    { featureType:'road.arterial',       elementType:'geometry',       stylers:[{color:'#f8f6f0'}] },
+    { featureType:'water',               elementType:'geometry',       stylers:[{color:'#b8d8e8'}] },
+    { featureType:'water',               elementType:'labels.text.fill',stylers:[{color:'#5a8fa8'}] },
+    { featureType:'poi.park',            elementType:'geometry',       stylers:[{color:'#cce8b0'}] },
+    { featureType:'poi.park',            elementType:'labels.text.fill',stylers:[{color:'#5a8a45'}] },
+    { featureType:'poi',                 elementType:'labels',         stylers:[{visibility:'off'}] },
+    { featureType:'poi.business',        stylers:[{visibility:'off'}] },
+    { featureType:'transit',             stylers:[{visibility:'off'}] },
+    { featureType:'landscape.man_made',  elementType:'geometry',       stylers:[{color:'#e8e3da'}] },
+    { featureType:'administrative',      elementType:'geometry.stroke',stylers:[{color:'#c8c0b0'},{weight:1}] },
+  ];
+
   const map = new google.maps.Map(document.getElementById('gmap'), {
     center: { lat: 45.04, lng: -93.505 },
-    zoom: 12,
+    zoom: 13,
     tilt: 45,
-    mapTypeId: 'hybrid',
+    heading: 20,
+    mapTypeId: 'roadmap',
+    styles: STYLE,
     disableDefaultUI: true,
     gestureHandling: 'none',
     keyboardShortcuts: false,
   });
 
   CITIES.forEach(city => {
-    // Glowing service-area circle
     new google.maps.Circle({
       map,
       center: { lat: city.lat, lng: city.lng },
-      radius: 2800,
-      fillColor: '#9CCB7A',
-      fillOpacity: 0.18,
-      strokeColor: '#9CCB7A',
-      strokeOpacity: 0.7,
+      radius: 2400,
+      fillColor: '#5A9E3A',
+      fillOpacity: 0.15,
+      strokeColor: '#5A9E3A',
+      strokeOpacity: 0.8,
       strokeWeight: 2,
     });
 
-    // Pin marker
     new google.maps.Marker({
       position: { lat: city.lat, lng: city.lng },
       map,
       title: city.name,
       icon: {
         path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-        fillColor: '#9CCB7A',
+        fillColor: '#1F3A2E',
         fillOpacity: 1,
-        strokeColor: '#1F3A2E',
-        strokeWeight: 1.5,
-        scale: 1.8,
+        strokeColor: '#ffffff',
+        strokeWeight: 2,
+        scale: 2,
         anchor: new google.maps.Point(12, 22),
       },
     });

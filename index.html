@@ -149,6 +149,8 @@
   .price-card.feat .price{color:var(--leaf-bright)}
   .price-card.feat .features li::before{color:var(--leaf-bright)}
   .price-card .badge{position:absolute;top:-11px;right:18px;background:var(--leaf);color:var(--forest-2);padding:4px 11px;border-radius:999px;font-size:11px;font-weight:500;font-family:"Geist Mono",monospace;text-transform:uppercase;letter-spacing:.1em;}
+  .price-card .badge.sale{background:linear-gradient(135deg,#F5A623,#F07C3E);color:#fff;}
+  .price-was{font-family:"Geist Mono",monospace;font-size:13px;color:var(--muted);text-decoration:line-through;margin-bottom:2px;}
   .price-title{font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--forest-2);display:flex;align-items:center;gap:10px}
   .price-title .mini-bin{width:18px;height:22px;display:inline-block}
   .price-desc{font-size:13px;color:var(--muted);margin-top:2px}
@@ -370,11 +372,12 @@
     </div>
     <div class="pricing-grid">
       <article class="price-card feat">
-        <span class="badge">Most Popular</span>
+        <span class="badge sale">☀️ Summer Sale</span>
         <div>
           <div class="price-title"><svg class="mini-bin" viewBox="0 0 100 130" style="color:#9CCB7A"><use href="#binSvg"/></svg>Bi‑Weekly</div>
           <div class="price-desc">Cleaned every other week.</div>
         </div>
+        <div class="price-was">$110/mo</div>
         <div class="price"><span class="cur">$</span>70<span class="per">/mo</span></div>
         <ul class="features">
           <li>2 cleans per month</li>

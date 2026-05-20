@@ -182,8 +182,8 @@
   @media(max-width:980px){.service{margin:0 16px;border-radius:24px;padding:56px 0}}
   .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
   @media(max-width:900px){.service-grid{grid-template-columns:1fr}}
-  .map{aspect-ratio:1/1;background:var(--cream);border-radius:24px;position:relative;overflow:hidden;border:1px solid var(--line);}
-  .map svg{position:absolute;inset:0;width:100%;height:100%}
+  .map{aspect-ratio:1/1;border-radius:24px;position:relative;overflow:hidden;border:1px solid var(--line);box-shadow:0 12px 40px rgba(0,0,0,.18);}
+  #gmap{width:100%;height:100%;}
   .city-list{display:flex;flex-direction:column;gap:12px}
   .city{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:16px 20px;background:var(--bg);border:1px solid var(--line);border-radius:16px;transition:transform .25s ease,border-color .25s ease;}
   .city:hover{transform:translateX(4px);border-color:var(--moss)}
@@ -406,28 +406,8 @@
       <p class="sec-desc">Three cities, northwest metro. Just outside the line? Drop us a note — we add ZIPs as routes fill up.</p>
     </div>
     <div class="service-grid">
-      <div class="map" role="img" aria-label="Stylized map of service area">
-        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#C8C2A6"/></pattern>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#DCD6BB" stroke-width="1"/></pattern>
-          </defs>
-          <rect width="400" height="400" fill="url(#dots)"/>
-          <rect width="400" height="400" fill="url(#grid)" opacity=".7"/>
-          <path d="M70,210 Q80,120 180,100 Q300,90 320,180 Q340,300 230,310 Q90,320 70,210Z" fill="#7FB069" opacity=".25" stroke="#1F3A2E" stroke-width="1.5" stroke-dasharray="4 5"/>
-          <path d="M0 230 Q150 220 400 240" stroke="#1F3A2E" stroke-width="2" fill="none" opacity=".25"/>
-          <path d="M180 0 Q200 180 220 400" stroke="#1F3A2E" stroke-width="2" fill="none" opacity=".25"/>
-          <g font-family="Geist Mono, monospace" font-size="11" fill="#15241C">
-            <g transform="translate(135,160)"><circle r="9" fill="#1F3A2E"/><circle r="3" fill="#9CCB7A"/><text x="14" y="4" font-weight="500">MAPLE GROVE</text><text x="14" y="18" fill="#6B7A6F" font-size="9">55369 · 55311</text></g>
-            <g transform="translate(120,250)"><circle r="9" fill="#1F3A2E"/><circle r="3" fill="#9CCB7A"/><text x="14" y="4" font-weight="500">MEDINA</text><text x="14" y="18" fill="#6B7A6F" font-size="9">55340 · 55356</text></g>
-            <g transform="translate(245,225)"><circle r="9" fill="#1F3A2E"/><circle r="3" fill="#9CCB7A"/><text x="14" y="4" font-weight="500">PLYMOUTH</text><text x="14" y="18" fill="#6B7A6F" font-size="9">55441 · 55447</text></g>
-          </g>
-          <g transform="translate(350,50)" font-family="Geist Mono,monospace" font-size="9" fill="#6B7A6F">
-            <circle r="18" fill="none" stroke="#6B7A6F" stroke-width=".8"/>
-            <path d="M0,-14 L3,0 L0,14 L-3,0 Z" fill="#1F3A2E"/>
-            <text x="-3" y="-22">N</text>
-          </g>
-        </svg>
+      <div class="map" role="region" aria-label="ClearBin service area map">
+        <div id="gmap"></div>
       </div>
       <div>
         <div class="city-list">
@@ -616,6 +596,57 @@
 </script>
 
 <!-- Schema.org LocalBusiness — helps Google show address, phone, hours in search -->
+<script>
+function initServiceMap() {
+  const CITIES = [
+    { name:'Maple Grove', lat:45.0725, lng:-93.4557 },
+    { name:'Medina',      lat:45.0231, lng:-93.5763 },
+    { name:'Plymouth',    lat:45.0105, lng:-93.4355 },
+  ];
+
+  const map = new google.maps.Map(document.getElementById('gmap'), {
+    center: { lat: 45.04, lng: -93.505 },
+    zoom: 12,
+    tilt: 45,
+    mapTypeId: 'hybrid',
+    disableDefaultUI: true,
+    gestureHandling: 'none',
+    keyboardShortcuts: false,
+  });
+
+  CITIES.forEach(city => {
+    // Glowing service-area circle
+    new google.maps.Circle({
+      map,
+      center: { lat: city.lat, lng: city.lng },
+      radius: 2800,
+      fillColor: '#9CCB7A',
+      fillOpacity: 0.18,
+      strokeColor: '#9CCB7A',
+      strokeOpacity: 0.7,
+      strokeWeight: 2,
+    });
+
+    // Pin marker
+    new google.maps.Marker({
+      position: { lat: city.lat, lng: city.lng },
+      map,
+      title: city.name,
+      icon: {
+        path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+        fillColor: '#9CCB7A',
+        fillOpacity: 1,
+        strokeColor: '#1F3A2E',
+        strokeWeight: 1.5,
+        scale: 1.8,
+        anchor: new google.maps.Point(12, 22),
+      },
+    });
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE1Nej0cEpxlaEw8xj_CEi3WP1LW3kXbo&callback=initServiceMap" async defer></script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

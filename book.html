@@ -252,34 +252,12 @@
       <div class="plan-card" data-plan="monthly" onclick="selectPlan(this)">
         <span class="plan-check"></span>
         <div class="plan-name">Monthly</div>
-        <div class="plan-price">$45<span class="plan-price-unit">/mo</span></div>
+        <div class="plan-price">$55<span class="plan-price-unit">/mo</span></div>
         <div class="plan-sub">1 clean per month</div>
         <ul class="plan-features">
           <li>Same day as city pickup</li>
           <li>Trash + recycling</li>
           <li>Cancel anytime</li>
-        </ul>
-      </div>
-      <div class="plan-card" data-plan="quarterly" onclick="selectPlan(this)">
-        <span class="plan-check"></span>
-        <div class="plan-name">Quarterly</div>
-        <div class="plan-price">$35<span class="plan-price-unit">/clean</span></div>
-        <div class="plan-sub">4 cleans per year</div>
-        <ul class="plan-features">
-          <li>Seasonal deep clean</li>
-          <li>Auto-scheduled</li>
-          <li>Cancel anytime</li>
-        </ul>
-      </div>
-      <div class="plan-card" data-plan="onetime" onclick="selectPlan(this)">
-        <span class="plan-check"></span>
-        <div class="plan-name">One‑Time</div>
-        <div class="plan-price">$50<span class="plan-price-unit">/visit</span></div>
-        <div class="plan-sub">Single deep clean</div>
-        <ul class="plan-features">
-          <li>Book any available week</li>
-          <li>Trash + recycling</li>
-          <li>No subscription needed</li>
         </ul>
       </div>
     </div>
@@ -487,9 +465,7 @@
 <script>
   const PLANS = {
     biweekly:  { name:'Bi-Weekly',  price:'$70/mo',    priceShort:'$70', unit:'/mo',    features:['2 cleans/month','Every other week','Free deodorizer each visit','Priority scheduling'] },
-    monthly:   { name:'Monthly',    price:'$45/mo',    priceShort:'$45', unit:'/mo',    features:['1 clean/month','Same day as city pickup','Before & after photos'] },
-    quarterly: { name:'Quarterly',  price:'$35/clean', priceShort:'$35', unit:'/clean', features:['4 cleans/year','Auto-scheduled','Seasonal deep clean'] },
-    onetime:   { name:'One-Time',   price:'$50',       priceShort:'$50', unit:'',       features:['Single deep clean','Trash + recycling','No subscription needed'] },
+    monthly:   { name:'Monthly',    price:'$55/mo',    priceShort:'$55', unit:'/mo',    features:['1 clean/month','Same day as city pickup','Before & after photos'] },
   };
 
   const CITY_INFO = {

@@ -27,6 +27,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231F3A2E'/><circle cx='50' cy='50' r='22' fill='%239CCB7A'/><circle cx='50' cy='50' r='10' fill='%231F3A2E'/></svg>" />
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231F3A2E'/><circle cx='50' cy='50' r='22' fill='%239CCB7A'/></svg>" />
 
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -596,77 +597,87 @@
 </script>
 
 <!-- Schema.org LocalBusiness — helps Google show address, phone, hours in search -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 <script>
-function initServiceMap() {
-  const CITIES = [
-    { name:'Maple Grove', lat:45.0725, lng:-93.4557 },
-    { name:'Medina',      lat:45.0231, lng:-93.5763 },
-    { name:'Plymouth',    lat:45.0105, lng:-93.4355 },
-  ];
+const MAPBOX_TOKEN = 'YOUR_MAPBOX_TOKEN'; // ⚠ mapbox.com → get free token
 
-  const STYLE = [
-    { elementType:'geometry',            stylers:[{color:'#f0ede6'}] },
-    { elementType:'labels.text.fill',    stylers:[{color:'#4a4a4a'}] },
-    { elementType:'labels.text.stroke',  stylers:[{color:'#ffffff'},{weight:2}] },
-    { featureType:'administrative.locality', elementType:'labels.text.fill', stylers:[{color:'#2a2a2a'},{weight:'500'}] },
-    { featureType:'road',                elementType:'geometry',       stylers:[{color:'#ffffff'}] },
-    { featureType:'road',                elementType:'geometry.stroke',stylers:[{color:'#e0dbd2'},{weight:1}] },
-    { featureType:'road.highway',        elementType:'geometry',       stylers:[{color:'#f5e9c4'}] },
-    { featureType:'road.highway',        elementType:'geometry.stroke',stylers:[{color:'#e8d98a'},{weight:1}] },
-    { featureType:'road.arterial',       elementType:'geometry',       stylers:[{color:'#f8f6f0'}] },
-    { featureType:'water',               elementType:'geometry',       stylers:[{color:'#b8d8e8'}] },
-    { featureType:'water',               elementType:'labels.text.fill',stylers:[{color:'#5a8fa8'}] },
-    { featureType:'poi.park',            elementType:'geometry',       stylers:[{color:'#cce8b0'}] },
-    { featureType:'poi.park',            elementType:'labels.text.fill',stylers:[{color:'#5a8a45'}] },
-    { featureType:'poi',                 elementType:'labels',         stylers:[{visibility:'off'}] },
-    { featureType:'poi.business',        stylers:[{visibility:'off'}] },
-    { featureType:'transit',             stylers:[{visibility:'off'}] },
-    { featureType:'landscape.man_made',  elementType:'geometry',       stylers:[{color:'#e8e3da'}] },
-    { featureType:'administrative',      elementType:'geometry.stroke',stylers:[{color:'#c8c0b0'},{weight:1}] },
-  ];
+const CITIES = [
+  { name:'Maple Grove', lat:45.0725, lng:-93.4557 },
+  { name:'Medina',      lat:45.0231, lng:-93.5763 },
+  { name:'Plymouth',    lat:45.0105, lng:-93.4355 },
+];
 
-  const map = new google.maps.Map(document.getElementById('gmap'), {
-    center: { lat: 45.04, lng: -93.505 },
-    zoom: 13,
-    tilt: 45,
-    heading: 20,
-    mapTypeId: 'roadmap',
-    styles: STYLE,
-    disableDefaultUI: true,
-    gestureHandling: 'none',
-    keyboardShortcuts: false,
-  });
-
-  CITIES.forEach(city => {
-    new google.maps.Circle({
-      map,
-      center: { lat: city.lat, lng: city.lng },
-      radius: 2400,
-      fillColor: '#5A9E3A',
-      fillOpacity: 0.15,
-      strokeColor: '#5A9E3A',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-    });
-
-    new google.maps.Marker({
-      position: { lat: city.lat, lng: city.lng },
-      map,
-      title: city.name,
-      icon: {
-        path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-        fillColor: '#1F3A2E',
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeWeight: 2,
-        scale: 2,
-        anchor: new google.maps.Point(12, 22),
-      },
-    });
-  });
+function makeCircle(lng, lat, radiusKm, pts = 80) {
+  const coords = [];
+  for (let i = 0; i <= pts; i++) {
+    const a = (i / pts) * 2 * Math.PI;
+    coords.push([
+      lng + (radiusKm / 111.32) / Math.cos(lat * Math.PI / 180) * Math.cos(a),
+      lat + (radiusKm / 111.32) * Math.sin(a),
+    ]);
+  }
+  return { type:'Feature', geometry:{ type:'Polygon', coordinates:[coords] } };
 }
+
+mapboxgl.accessToken = MAPBOX_TOKEN;
+
+const map = new mapboxgl.Map({
+  container: 'gmap',
+  style: 'mapbox://styles/mapbox/light-v11',
+  center: [-93.505, 45.04],
+  zoom: 12.2,
+  pitch: 50,
+  bearing: 15,
+  interactive: false,
+  attributionControl: false,
+});
+
+map.addControl(new mapboxgl.AttributionControl({ compact: true }));
+
+map.on('load', () => {
+  // 3D buildings
+  map.addLayer({
+    id: '3d-buildings',
+    source: 'composite',
+    'source-layer': 'building',
+    filter: ['==', 'extrude', 'true'],
+    type: 'fill-extrusion',
+    minzoom: 10,
+    paint: {
+      'fill-extrusion-color': [
+        'interpolate', ['linear'], ['get', 'height'],
+        0, '#e8e3da', 50, '#d8d2c8', 100, '#c8c0b5'
+      ],
+      'fill-extrusion-height': ['get', 'height'],
+      'fill-extrusion-base':   ['get', 'min_height'],
+      'fill-extrusion-opacity': 0.8,
+    },
+  });
+
+  // Service area circles + markers
+  CITIES.forEach(city => {
+    map.addSource(`circle-${city.name}`, {
+      type: 'geojson',
+      data: makeCircle(city.lng, city.lat, 2.4),
+    });
+    map.addLayer({
+      id: `fill-${city.name}`, type: 'fill',
+      source: `circle-${city.name}`,
+      paint: { 'fill-color':'#3D8C2F', 'fill-opacity': 0.15 },
+    });
+    map.addLayer({
+      id: `stroke-${city.name}`, type: 'line',
+      source: `circle-${city.name}`,
+      paint: { 'line-color':'#3D8C2F', 'line-width': 2, 'line-opacity': 0.7 },
+    });
+
+    // Custom HTML pin
+    const pin = document.createElement('div');
+    pin.style.cssText = 'width:14px;height:14px;border-radius:50%;background:#1F3A2E;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35)';
+    new mapboxgl.Marker(pin).setLngLat([city.lng, city.lat]).addTo(map);
+  });
+});
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE1Nej0cEpxlaEw8xj_CEi3WP1LW3kXbo&callback=initServiceMap" async defer></script>
 
 <script type="application/ld+json">
 {

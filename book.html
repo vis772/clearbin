@@ -174,14 +174,6 @@
   .step-view{display:none}
   .step-view.active{display:block;animation:fadeIn .25s ease}
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  /* Google Places autocomplete dropdown */
-  .pac-container{border-radius:12px;border:1px solid var(--line);box-shadow:0 8px 28px rgba(0,0,0,.13);font-family:"Geist",sans-serif;margin-top:4px;overflow:hidden;z-index:9999}
-  .pac-item{padding:11px 14px;font-size:14px;cursor:pointer;border-top:1px solid var(--line);color:var(--ink)}
-  .pac-item:first-child{border-top:none}
-  .pac-item:hover,.pac-item-selected{background:color-mix(in srgb,var(--leaf) 9%,white)}
-  .pac-item-query{font-weight:600;color:var(--forest-2)}
-  .pac-matched{color:var(--moss)}
-  .pac-icon,.pac-logo{display:none}
 </style>
 </head>
 <body>
@@ -480,54 +472,8 @@
   let booking = { plan:'', bins:['trash','recycling'] };
   let currentStep = 1;
 
-  // ── ADDRESS AUTOCOMPLETE ─────────────────────────────────────────
-  function loadGoogleMaps() {
-    if (!GOOGLE_MAPS_KEY || GOOGLE_MAPS_KEY === 'YOUR_GOOGLE_MAPS_KEY') return;
-    const s = document.createElement('script');
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}&libraries=places&callback=initPlacesAutocomplete`;
-    s.async = true;
-    document.head.appendChild(s);
-  }
-
-  window.initPlacesAutocomplete = function() {
-    const input = document.getElementById('f-street');
-    const ac = new google.maps.places.Autocomplete(input, {
-      types: ['address'],
-      componentRestrictions: { country: 'us' },
-      fields: ['address_components'],
-    });
-    // Bias toward the Minneapolis suburbs
-    ac.setBounds(new google.maps.LatLngBounds(
-      new google.maps.LatLng(44.85, -93.75),
-      new google.maps.LatLng(45.15, -93.25)
-    ));
-    ac.addListener('place_changed', () => {
-      const place = ac.getPlace();
-      if (!place.address_components) return;
-      let num = '', route = '', city = '', zip = '';
-      place.address_components.forEach(c => {
-        if (c.types.includes('street_number')) num   = c.long_name;
-        if (c.types.includes('route'))         route = c.long_name;
-        if (c.types.includes('locality'))      city  = c.long_name;
-        if (c.types.includes('postal_code'))   zip   = c.long_name;
-      });
-      // Put just the street line back (not city/state/zip)
-      input.value = [num, route].filter(Boolean).join(' ');
-      // Auto-select city dropdown
-      const SERVICE_CITIES = ['Maple Grove', 'Medina', 'Plymouth'];
-      const match = SERVICE_CITIES.find(sc =>
-        city.toLowerCase() === sc.toLowerCase()
-      );
-      const cityEl = document.getElementById('f-city');
-      if (match) { cityEl.value = match; onCityChange(); }
-      // Auto-fill ZIP
-      if (zip) document.getElementById('f-zip').value = zip;
-    });
-  };
-
   // Pre-select plan from URL param
   window.addEventListener('DOMContentLoaded', () => {
-    loadGoogleMaps();
     const urlPlan = new URLSearchParams(location.search).get('plan');
     if (urlPlan && PLANS[urlPlan]) {
       const card = document.querySelector(`[data-plan="${urlPlan}"]`);
@@ -699,8 +645,7 @@
   // 2. Enter clearbin12@gmail.com and click "Create Access Key"
   // 3. Paste the key below — every booking will email you instantly
   // ─────────────────────────────────────────────────────────────
-  const WEB3FORMS_KEY  = 'YOUR_ACCESS_KEY_HERE';   // ⚠ web3forms.com → get key
-  const GOOGLE_MAPS_KEY = 'AIzaSyAE1Nej0cEpxlaEw8xj_CEi3WP1LW3kXbo';
+  const WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE'; // ⚠ Replace with key from web3forms.com
 
   async function submitBooking() {
     const btn = document.getElementById('confirm-btn');
